@@ -6,10 +6,10 @@ class PlaceWeather {
 }
 
 class Day {
-  constructor(numDay, date, maxtempC, mintempC, dailyChanceOfRain) {
+  constructor(numDay, date, tempC, maxtempC, mintempC, dailyChanceOfRain) {
     this.numDay = numDay;
     this.date = date;
-    this.maxtempC = maxtempC;
+    (this.tempC = tempC), (this.maxtempC = maxtempC);
     this.mintempC = mintempC;
     this.dailyChanceOfRain = dailyChanceOfRain;
   }
@@ -35,6 +35,7 @@ async function getWeather(place) {
     const currDay = new Day(
       index,
       day.date,
+      data.current.temp_c,
       day.day.maxtemp_c,
       day.day.mintemp_c,
       day.day.daily_chance_of_rain
@@ -42,6 +43,5 @@ async function getWeather(place) {
     days.push(currDay);
   });
   const newPlace = new PlaceWeather(place, days);
-  console.log(newPlace);
   return newPlace;
 }
