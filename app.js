@@ -6,11 +6,20 @@ class PlaceWeather {
 }
 
 class Day {
-  constructor(numDay, maxtempC, mintempC, dailyChanceOfRain) {
+  constructor(numDay, date, maxtempC, mintempC, dailyChanceOfRain) {
     this.numDay = numDay;
+    this.date = date;
     this.maxtempC = maxtempC;
     this.mintempC = mintempC;
     this.dailyChanceOfRain = dailyChanceOfRain;
+  }
+
+  computeRain() {
+    if (this.dailyChanceOfRain === 0) {
+      return 'None';
+    } else {
+      return 'Some rain';
+    }
   }
 }
 
@@ -21,9 +30,11 @@ async function getWeather(place) {
   const data = await response.json();
 
   const days = [];
+
   data.forecast.forecastday.forEach((day, index) => {
     const currDay = new Day(
       index,
+      day.date,
       day.day.maxtemp_c,
       day.day.mintemp_c,
       day.day.daily_chance_of_rain
@@ -31,14 +42,6 @@ async function getWeather(place) {
     days.push(currDay);
   });
   const newPlace = new PlaceWeather(place, days);
+  console.log(newPlace);
   return newPlace;
 }
-
-getWeather('London');
-
-// data.current.temp_c
-// data.current.cloud
-// data.forecast.forecastday[0].day.maxtemp_c
-// data.forecast.forecastday[0].day.mintemp_c
-// data.forecast.forecastday[0].day.daily_chance_of_rain
-// data.forecast.forecastday[0].day.daily_ill_it_rain
