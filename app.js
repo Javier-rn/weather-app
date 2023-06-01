@@ -1,3 +1,19 @@
+function getDayOfWeek() {
+  const daysOfWeek = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  const currentDate = new Date();
+  const dayOfWeek = currentDate.getDay();
+
+  return daysOfWeek[dayOfWeek];
+}
+
 class PlaceWeather {
   constructor(name, days) {
     this.name = name;
@@ -9,7 +25,8 @@ class Day {
   constructor(numDay, date, tempC, maxtempC, mintempC, dailyChanceOfRain) {
     this.numDay = numDay;
     this.date = date;
-    (this.tempC = tempC), (this.maxtempC = maxtempC);
+    this.tempC = tempC;
+    this.maxtempC = maxtempC;
     this.mintempC = mintempC;
     this.dailyChanceOfRain = dailyChanceOfRain;
   }

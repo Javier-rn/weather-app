@@ -40,17 +40,17 @@ body {
   padding: 2.5em;
   width: 100%;
   background-image: linear-gradient(
-    25deg,
-    hsl(55deg 57% 39%) 0%,
-    hsl(41deg 66% 38%) 12%,
-    hsl(29deg 64% 39%) 20%,
-    hsl(16deg 57% 39%) 28%,
-    hsl(360deg 48% 38%) 35%,
-    hsl(343deg 60% 31%) 43%,
-    hsl(328deg 70% 24%) 52%,
-    hsl(311deg 72% 18%) 62%,
-    hsl(280deg 69% 15%) 76%,
-    hsl(240deg 78% 12%) 100%
+    45deg,
+    hsl(240deg 13% 53%) 0%,
+    hsl(239deg 18% 53%) 13%,
+    hsl(238deg 23% 53%) 27%,
+    hsl(237deg 27% 52%) 41%,
+    hsl(236deg 32% 51%) 54%,
+    hsl(234deg 37% 50%) 65%,
+    hsl(233deg 43% 49%) 75%,
+    hsl(230deg 51% 48%) 84%,
+    hsl(227deg 62% 45%) 93%,
+    hsl(222deg 85% 41%) 100%
   );
 }
 
@@ -79,19 +79,19 @@ h2 {
 .day {
   border-radius: 8px;
   width: 100%;
-  padding: 0.4em 1em;
+  padding: 0 0.6em;
   background-image: linear-gradient(
-    25deg,
-    hsl(55deg 57% 39%) 0%,
-    hsl(41deg 66% 38%) 12%,
-    hsl(29deg 64% 39%) 20%,
-    hsl(16deg 57% 39%) 28%,
-    hsl(360deg 48% 38%) 35%,
-    hsl(343deg 60% 31%) 43%,
-    hsl(328deg 70% 24%) 52%,
-    hsl(311deg 72% 18%) 62%,
-    hsl(280deg 69% 15%) 76%,
-    hsl(240deg 78% 12%) 100%
+    45deg,
+    hsl(240deg 13% 53%) 0%,
+    hsl(239deg 18% 53%) 13%,
+    hsl(238deg 23% 53%) 27%,
+    hsl(237deg 27% 52%) 41%,
+    hsl(236deg 32% 51%) 54%,
+    hsl(234deg 37% 50%) 65%,
+    hsl(233deg 43% 49%) 75%,
+    hsl(230deg 51% 48%) 84%,
+    hsl(227deg 62% 45%) 93%,
+    hsl(222deg 85% 41%) 100%
   );
 }
 
