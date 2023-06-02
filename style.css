@@ -36,6 +36,8 @@ body {
 }
 
 .current-weather {
+  overflow: hidden;
+  position: relative;
   border-radius: 10px;
   padding: 2.5em;
   width: 100%;
@@ -101,7 +103,7 @@ h2 {
   justify-content: space-between;
 }
 
-.temp-icon i {
+.temp-icon img {
   margin-top: 10px;
 }
 
@@ -109,4 +111,32 @@ h2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+}
+
+.circle {
+  position: absolute;
+  top: 100px;
+  left: -500px;
+  width: 2000px;
+  height: 2000px;
+  border-radius: 50%;
+  background-image: linear-gradient(
+    45deg,
+    hsl(240deg 13% 53%) 0%,
+    hsl(239deg 18% 53%) 13%,
+    hsl(238deg 23% 53%) 27%,
+    hsl(237deg 27% 52%) 41%,
+    hsl(236deg 32% 51%) 54%,
+    hsl(234deg 37% 50%) 65%,
+    hsl(233deg 43% 49%) 75%,
+    hsl(230deg 51% 48%) 84%,
+    hsl(227deg 62% 45%) 93%,
+    hsl(222deg 85% 41%) 100%
+  );
+  opacity: 0.4;
 }

@@ -29,6 +29,8 @@ async function getWeather(place) {
   );
   const data = await response.json();
 
+  console.log(data);
+
   const days = [];
 
   data.forecast.forecastday.forEach((day, index) => {
@@ -46,7 +48,17 @@ async function getWeather(place) {
   return newPlace;
 }
 
+// function returnIcon(condition) {
+//   const icons = ['sun', 'cloud', 'sun-cloud', 'cloud-bolt', 'cloud-rain'];
+//   if (condition === 'sunny') {
+//     return 'sun'
+//   } else if (condition === )
+// }
+
 function displayWeather(weatherObj) {
+  const weatherContent = document.querySelector('.weather-content');
+  weatherContent.innerHTML = '';
+
   const currentDay = weatherObj.days[0];
   const forecastDays = [
     weatherObj.days[1],
@@ -62,13 +74,14 @@ function displayWeather(weatherObj) {
 
   const tempParagraph = document.createElement('p');
   tempParagraph.className = 'temp';
-  tempParagraph.textContent = currentDay.tempC;
+  tempParagraph.textContent = currentDay.tempC + 'º';
 
-  const sunIcon = document.createElement('i');
-  sunIcon.className = 'fa-solid fa-sun';
+  const icon = document.createElement('img');
+  icon.classList.add('icon');
+  icon.src = 'https://cdn.weatherapi.com/weather/64x64/day/176.png';
 
   tempIconDiv.appendChild(tempParagraph);
-  tempIconDiv.appendChild(sunIcon);
+  tempIconDiv.appendChild(icon);
 
   const placeName = document.createElement('h2');
   placeName.textContent = weatherObj.name;
@@ -76,6 +89,10 @@ function displayWeather(weatherObj) {
   const temperatureParagraph = document.createElement('p');
   temperatureParagraph.textContent = `${currentDay.maxtempC} - ${currentDay.mintempC}`;
 
+  const circle = document.createElement('div');
+  circle.classList.add('circle');
+
+  currentWeatherDiv.appendChild(circle);
   currentWeatherDiv.appendChild(tempIconDiv);
   currentWeatherDiv.appendChild(placeName);
   currentWeatherDiv.appendChild(temperatureParagraph);
@@ -97,14 +114,14 @@ function displayWeather(weatherObj) {
     const minMaxParagraph = document.createElement('p');
     minMaxParagraph.className = 'min-max';
 
-    const minTempSpan = document.createElement('span');
-    minTempSpan.textContent = day.mintempC;
-
     const maxTempSpan = document.createElement('span');
-    maxTempSpan.textContent = day.maxtempC;
+    maxTempSpan.textContent = day.maxtempC + 'º';
 
-    minMaxParagraph.appendChild(minTempSpan);
+    const minTempSpan = document.createElement('span');
+    minTempSpan.textContent = day.mintempC + 'º';
+
     minMaxParagraph.appendChild(maxTempSpan);
+    minMaxParagraph.appendChild(minTempSpan);
 
     dayDiv.appendChild(dateParagraph);
     dayDiv.appendChild(icon);
@@ -113,11 +130,28 @@ function displayWeather(weatherObj) {
     forecastWeatherDiv.appendChild(dayDiv);
   }
 
-  const weatherContent = document.querySelector('.weather-content');
   weatherContent.appendChild(currentWeatherDiv);
   weatherContent.appendChild(forecastWeatherDiv);
 }
 
-getWeather('tokyo').then((data) => {
+const button = document.querySelector('button');
+button.addEventListener('click', function (e) {
+  const searchQ = e.target.previousElementSibling.value;
+  getWeather(searchQ).then((data) => {
+    displayWeather(data);
+  });
+});
+
+const input = document.querySelector('input');
+input.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    const searchQ = input.value;
+    getWeather(searchQ).then((data) => {
+      displayWeather(data);
+    });
+  }
+});
+
+getWeather('London').then((data) => {
   displayWeather(data);
 });
