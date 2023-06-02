@@ -117,6 +117,10 @@ h2 {
   width: 64px;
   height: 64px;
 }
+.sm-icon {
+  width: 35px;
+  height: 35px;
+}
 
 .circle {
   position: absolute;
@@ -139,4 +143,11 @@ h2 {
     hsl(222deg 85% 41%) 100%
   );
   opacity: 0.4;
+}
+
+.date-icon-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

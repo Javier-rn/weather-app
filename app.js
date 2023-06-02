@@ -6,13 +6,22 @@ class PlaceWeather {
 }
 
 class Day {
-  constructor(numDay, date, tempC, maxtempC, mintempC, dailyChanceOfRain) {
+  constructor(
+    numDay,
+    date,
+    tempC,
+    maxtempC,
+    mintempC,
+    dailyChanceOfRain,
+    iconUrl
+  ) {
     this.numDay = numDay;
     this.date = date;
     this.tempC = tempC;
     this.maxtempC = maxtempC;
     this.mintempC = mintempC;
     this.dailyChanceOfRain = dailyChanceOfRain;
+    this.iconUrl = iconUrl;
   }
 }
 
@@ -29,18 +38,17 @@ async function getWeather(place) {
   );
   const data = await response.json();
 
-  console.log(data);
-
   const days = [];
 
   data.forecast.forecastday.forEach((day, index) => {
     const currDay = new Day(
       index,
       day.date,
-      data.current.temp_c,
-      day.day.maxtemp_c,
-      day.day.mintemp_c,
-      day.day.daily_chance_of_rain
+      Math.round(data.current.temp_c),
+      Math.round(day.day.maxtemp_c),
+      Math.round(day.day.mintemp_c),
+      day.day.daily_chance_of_rain,
+      day.day.condition.icon
     );
     days.push(currDay);
   });
@@ -78,7 +86,7 @@ function displayWeather(weatherObj) {
 
   const icon = document.createElement('img');
   icon.classList.add('icon');
-  icon.src = 'https://cdn.weatherapi.com/weather/64x64/day/176.png';
+  icon.src = 'https:' + currentDay.iconUrl;
 
   tempIconDiv.appendChild(tempParagraph);
   tempIconDiv.appendChild(icon);
@@ -87,7 +95,7 @@ function displayWeather(weatherObj) {
   placeName.textContent = weatherObj.name;
 
   const temperatureParagraph = document.createElement('p');
-  temperatureParagraph.textContent = `${currentDay.maxtempC} - ${currentDay.mintempC}`;
+  temperatureParagraph.textContent = `${currentDay.maxtempC}º - ${currentDay.mintempC}º`;
 
   const circle = document.createElement('div');
   circle.classList.add('circle');
@@ -108,8 +116,14 @@ function displayWeather(weatherObj) {
     dateParagraph.className = 'date';
     dateParagraph.textContent = getDayOfWeek(day.date);
 
-    const icon = document.createElement('i');
-    icon.className = 'fa-solid fa-cloud';
+    const icon = document.createElement('img');
+    icon.classList.add('sm-icon');
+    icon.src = 'https:' + day.iconUrl;
+
+    const dateIconDiv = document.createElement('div');
+    dateIconDiv.classList.add('date-icon-div');
+    dateIconDiv.append(dateParagraph);
+    dateIconDiv.append(icon);
 
     const minMaxParagraph = document.createElement('p');
     minMaxParagraph.className = 'min-max';
@@ -123,8 +137,7 @@ function displayWeather(weatherObj) {
     minMaxParagraph.appendChild(maxTempSpan);
     minMaxParagraph.appendChild(minTempSpan);
 
-    dayDiv.appendChild(dateParagraph);
-    dayDiv.appendChild(icon);
+    dayDiv.appendChild(dateIconDiv);
     dayDiv.appendChild(minMaxParagraph);
 
     forecastWeatherDiv.appendChild(dayDiv);
