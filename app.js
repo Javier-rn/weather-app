@@ -1,19 +1,3 @@
-function getDayOfWeek() {
-  const daysOfWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  const currentDate = new Date();
-  const dayOfWeek = currentDate.getDay();
-
-  return daysOfWeek[dayOfWeek];
-}
-
 class PlaceWeather {
   constructor(name, days) {
     this.name = name;
@@ -30,14 +14,13 @@ class Day {
     this.mintempC = mintempC;
     this.dailyChanceOfRain = dailyChanceOfRain;
   }
+}
 
-  computeRain() {
-    if (this.dailyChanceOfRain === 0) {
-      return 'None';
-    } else {
-      return 'Some rain';
-    }
-  }
+function getDayOfWeek(formattedDate) {
+  const date = new Date(formattedDate);
+  const options = { weekday: 'short' };
+  const dayOfWeek = date.toLocaleDateString('en-US', options);
+  return dayOfWeek;
 }
 
 async function getWeather(place) {
@@ -62,3 +45,79 @@ async function getWeather(place) {
   const newPlace = new PlaceWeather(place, days);
   return newPlace;
 }
+
+function displayWeather(weatherObj) {
+  const currentDay = weatherObj.days[0];
+  const forecastDays = [
+    weatherObj.days[1],
+    weatherObj.days[2],
+    weatherObj.days[3],
+  ];
+
+  const currentWeatherDiv = document.createElement('div');
+  currentWeatherDiv.className = 'current-weather';
+
+  const tempIconDiv = document.createElement('div');
+  tempIconDiv.className = 'temp-icon';
+
+  const tempParagraph = document.createElement('p');
+  tempParagraph.className = 'temp';
+  tempParagraph.textContent = currentDay.tempC;
+
+  const sunIcon = document.createElement('i');
+  sunIcon.className = 'fa-solid fa-sun';
+
+  tempIconDiv.appendChild(tempParagraph);
+  tempIconDiv.appendChild(sunIcon);
+
+  const placeName = document.createElement('h2');
+  placeName.textContent = weatherObj.name;
+
+  const temperatureParagraph = document.createElement('p');
+  temperatureParagraph.textContent = `${currentDay.maxtempC} - ${currentDay.mintempC}`;
+
+  currentWeatherDiv.appendChild(tempIconDiv);
+  currentWeatherDiv.appendChild(placeName);
+  currentWeatherDiv.appendChild(temperatureParagraph);
+
+  const forecastWeatherDiv = document.createElement('div');
+  forecastWeatherDiv.className = 'forecast-weather';
+
+  for (let day of forecastDays) {
+    const dayDiv = document.createElement('div');
+    dayDiv.className = 'day';
+
+    const dateParagraph = document.createElement('p');
+    dateParagraph.className = 'date';
+    dateParagraph.textContent = getDayOfWeek(day.date);
+
+    const icon = document.createElement('i');
+    icon.className = 'fa-solid fa-cloud';
+
+    const minMaxParagraph = document.createElement('p');
+    minMaxParagraph.className = 'min-max';
+
+    const minTempSpan = document.createElement('span');
+    minTempSpan.textContent = day.mintempC;
+
+    const maxTempSpan = document.createElement('span');
+    maxTempSpan.textContent = day.maxtempC;
+
+    minMaxParagraph.appendChild(minTempSpan);
+    minMaxParagraph.appendChild(maxTempSpan);
+
+    dayDiv.appendChild(dateParagraph);
+    dayDiv.appendChild(icon);
+    dayDiv.appendChild(minMaxParagraph);
+
+    forecastWeatherDiv.appendChild(dayDiv);
+  }
+
+  const weatherContent = document.querySelector('.weather-content');
+  weatherContent.appendChild(currentWeatherDiv);
+  weatherContent.appendChild(forecastWeatherDiv);
+}
+
+getWeather('tokyo').then((data) => {
+  displayWeather(data);
+});

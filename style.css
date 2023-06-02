@@ -104,3 +104,9 @@ h2 {
 .temp-icon i {
   margin-top: 10px;
 }
+
+.min-max {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
