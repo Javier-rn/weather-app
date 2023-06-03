@@ -1,6 +1,7 @@
 class PlaceWeather {
-  constructor(name, days) {
+  constructor(name, country, days) {
     this.name = name;
+    this.country = country;
     this.days = days;
   }
 }
@@ -52,7 +53,11 @@ async function getWeather(place) {
     );
     days.push(currDay);
   });
-  const newPlace = new PlaceWeather(place, days);
+  const newPlace = new PlaceWeather(
+    data.location.name,
+    data.location.country,
+    days
+  );
   return newPlace;
 }
 
@@ -92,7 +97,7 @@ function displayWeather(weatherObj) {
   tempIconDiv.appendChild(icon);
 
   const placeName = document.createElement('h2');
-  placeName.textContent = weatherObj.name;
+  placeName.textContent = `${weatherObj.name}, ${weatherObj.country}`;
 
   const temperatureParagraph = document.createElement('p');
   temperatureParagraph.textContent = `${currentDay.maxtempC}º - ${currentDay.mintempC}º`;
