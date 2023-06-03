@@ -24,6 +24,21 @@ body {
   align-items: center;
 }
 
+input {
+  background-color: transparent;
+  border: 2px solid grey;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+button {
+  padding: 3px 10px;
+  cursor: pointer;
+  border: 2px solid grey;
+  border-radius: 3px;
+  background-color: rgb(230, 208, 208);
+}
+
 .weather-content {
   border-radius: 10px;
   color: white;
@@ -120,29 +135,6 @@ h2 {
 .sm-icon {
   width: 35px;
   height: 35px;
-}
-
-.circle {
-  position: absolute;
-  top: 100px;
-  left: -500px;
-  width: 2000px;
-  height: 2000px;
-  border-radius: 50%;
-  background-image: linear-gradient(
-    45deg,
-    hsl(240deg 13% 53%) 0%,
-    hsl(239deg 18% 53%) 13%,
-    hsl(238deg 23% 53%) 27%,
-    hsl(237deg 27% 52%) 41%,
-    hsl(236deg 32% 51%) 54%,
-    hsl(234deg 37% 50%) 65%,
-    hsl(233deg 43% 49%) 75%,
-    hsl(230deg 51% 48%) 84%,
-    hsl(227deg 62% 45%) 93%,
-    hsl(222deg 85% 41%) 100%
-  );
-  opacity: 0.4;
 }
 
 .date-icon-div {
